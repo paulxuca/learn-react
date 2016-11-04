@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const sessionSchema = new mongoose.Schema({
-  dateCreated: {
+  dateTouched: {
     type: Date,
     default: Date.now()
   },
