@@ -11,5 +11,15 @@ module.exports = {
         resolve(newSessionDocument);
       });
     });
-  }
+  },
+  findActiveSessions: () => {
+    return new Promise((resolve, reject) => {
+      Session.find({ isActive: true }, (err, activeSessions) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(activeSessions);
+      });
+    });
+  },
 };

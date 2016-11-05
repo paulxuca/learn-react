@@ -12,17 +12,14 @@ function createSession(data){
       .then((newSession) => {
         const { _id } = newSession;
         const bundleDir = path.join(process.cwd(), 'bundles', `bundle_${_id}`);
-        const buildDir = path.join(process.cwd(), 'builds', `build_${_id}`)
         fs.ensureDirSync(bundleDir);
-        fs.ensureDirSync(buildDir);
         files.forEach((eachFile) => {
           fs.ensureFileSync(path.join(bundleDir, eachFile.fileName));
-          fs.outputFileSync(path.join(bundleDir, eachFile.fileName), eachFile.contents);
         });
         const entryFileName = utils.getEntry(files);
         compiler.generate(_id, entryFileName)
-          .then((data) => {
-            resolve(`/builds/build_${_id}/bundle.js`);
+          .then((buildUrl) => {
+            resolve(buildUrl);
           })
           .catch((err) => {
             console.log(err);
@@ -38,6 +35,7 @@ function createSession(data){
     }
   });
 }
+
 
 module.exports = {
   create: createSession
