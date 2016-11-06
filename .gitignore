@@ -3,4 +3,5 @@ npm-debug.log
 bundles/
 builds/
 vendors/
+vendor/
 .DS_Store

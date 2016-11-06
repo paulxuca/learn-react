@@ -1,4 +1,4 @@
-/* eslint no-unused-expressions: 0 */
+/* eslint no-unused-expressions: 0, no-undef: 1, global-require: 1 */
 import 'sanitize.css/sanitize.css';
 import React from 'react';
 import { render } from 'react-dom';
@@ -16,18 +16,18 @@ render(
   <AppContainer>
     <Routing />
   </AppContainer>,
-  document.getElementById('root') // eslint-disable-line
+  document.getElementById('root')
 );
 
 if (module.hot) {
   module.hot.accept('./Routing', () => {
-    const NextLoadedApp = require('./Routing').default; // eslint-disable-line global-require
+    const NextLoadedApp = require('./Routing').default;
 
     render(
       <AppContainer>
         <NextLoadedApp />
       </AppContainer>,
-      document.getElementById('root') // eslint-disable-line
+      document.getElementById('root')
     );
   });
 }
