@@ -4,19 +4,23 @@ const models = require('./models');
 const compiler = require('./compiler');
 const utils = require('./utils');
 
-function createSession(data){
+function ensureFiles(files, bundleDir) {
+  files.forEach((eachFile) => {
+    fs.ensureFileSync(path.join(bundleDir, eachFile.fileName));
+  });
+}
+
+function createSession(data) {
   const { files } = data;
   return new Promise((resolve, reject) => {
     try {
-      models.createSession({ files: files })
+      const entryFileName = utils.getEntry(files);
+      models.createSession({ files, entryFile: entryFileName })
       .then((newSession) => {
         const { _id } = newSession;
-        const bundleDir = path.join(process.cwd(), 'bundles', `bundle_${_id}`);
+        const bundleDir = utils.getBundleDir(_id);
         fs.ensureDirSync(bundleDir);
-        files.forEach((eachFile) => {
-          fs.ensureFileSync(path.join(bundleDir, eachFile.fileName));
-        });
-        const entryFileName = utils.getEntry(files);
+        ensureFiles(files, bundleDir);
         compiler.generate(_id, entryFileName)
           .then((buildUrl) => {
             resolve(buildUrl);
@@ -36,7 +40,21 @@ function createSession(data){
   });
 }
 
+function updateSession(data) {
+  const { files, id } = data;
+  return new Promise((resolve, reject) => {
+    models
+      .updateSession(files, id)
+      .then(() => {
+        ensureFiles(files);
+      })
+      .then((updateError) => {
+        reject(updateError);
+      });
+  });
+}
 
 module.exports = {
-  create: createSession
+  create: createSession,
+  update: updateSession,
 };

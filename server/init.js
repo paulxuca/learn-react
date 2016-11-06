@@ -8,17 +8,16 @@ module.exports = {
     mongoose.connect('mongodb://localhost/learn', (err) => {
       if (err) throw new Error(err);
       console.log('Successful connection to mongodb');
-      fs.mkdirpSync(path.join(process.cwd(), 'bundles'));
-      fs.mkdirpSync(path.join(process.cwd(), 'vendors'));
+      fs.mkdirpSync(path.join(process.cwd(), 'server', 'bundles'));
+      fs.mkdirpSync(path.join(process.cwd(), 'server', 'vendors'));
       compiler
         .init()
-        .then(stats => {
-          console.log(stats);
+        .then(() => {
           console.log('vendors bundle initialized');
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     });
-  }
+  },
 };

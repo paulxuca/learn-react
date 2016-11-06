@@ -10,7 +10,8 @@ const sessionSchema = new mongoose.Schema({
   packages: {
     type: [Object],
     default: []
-  }
+  },
+  entryFile: String
 });
 
 module.exports = mongoose.model('Session', sessionSchema);

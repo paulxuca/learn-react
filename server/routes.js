@@ -1,11 +1,11 @@
 /* REMOVE ON DEV */
 const sessions = require('./sessions');
 
-function create(req, res){
+function create(req, res) {
   sessions.create(req.body)
   .then((buildPath) => {
     res.status(200).json({
-      buildPath: buildPath
+      buildPath,
     });
   })
   .catch((err) => {
@@ -14,5 +14,5 @@ function create(req, res){
 }
 
 module.exports = {
-  create: create
+  create,
 };
