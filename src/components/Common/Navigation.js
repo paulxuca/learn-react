@@ -33,7 +33,7 @@ export default () => (
         Register for Account
       </Button>
       <Button
-        width={140}
+        width={100}
         color="#aebdc1"
         hover="#393d40"
       >
