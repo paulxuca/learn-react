@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router';
 import Button from '../Button';
+
 
 const NavigationContainer = styled.default.div`
   display: flex;
@@ -32,13 +34,15 @@ export default () => (
       >
         Register for Account
       </Button>
-      <Button
-        width={100}
-        color="#aebdc1"
-        hover="#393d40"
-      >
-        Sign in
-      </Button>
+      <Link to="/users/sign_in">
+        <Button
+          width={100}
+          color="#aebdc1"
+          hover="#393d40"
+        >
+          Sign in
+        </Button>
+      </Link>
     </NavigationSection>
   </NavigationContainer>
 );

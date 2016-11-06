@@ -5,10 +5,14 @@ import Text from '../Common/Text';
 
 const ButtonElement = styled.default.button`
   flex: 1;
-  max-width: ${props => props.width}px;
-  min-width: ${props => props.width}px;
-  max-height: ${props => props.height}px;
-  min-height: ${props => props.height}px;
+  ${props => props.width && `
+    min-width: ${props.width}px;
+    max-width: ${props.width}px;  
+  `}
+  ${props => props.height && `
+    max-height: ${props.height}px;
+    min-height: ${props.height}px;
+  `}
   padding: 5px;
   color: ${props => props.color};
   font-size: 14px;
@@ -63,7 +67,7 @@ export default function Button({
       height={height}
     >
       <Text
-        size={large ? 16 : 12}
+        size={large ? 14 : 12}
         weight={400}
         color={filled && 'white'}
       >{children}</Text>

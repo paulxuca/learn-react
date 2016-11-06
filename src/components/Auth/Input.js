@@ -4,17 +4,20 @@ import styled from 'styled-components';
 const InputFieldset = styled.default.fieldset`
   background: transparent;
   border: none;
+  display: flex;
+  width: 100%;
 `;
 
 const InputLabel = styled.default.label`
   font-size: 14px;
   font-weight: 600;
   color: #575a5b;
-  margin-left: 10px;
 `;
 
 const InputElement = styled.default.input`
   width: 100%;
+  font-family: Open Sans, sans-serif;
+  font-size: 14px;
   flex: 1;
   min-height: 40px;
   max-height: 40px;
