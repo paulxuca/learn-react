@@ -28,6 +28,7 @@ const InputElement = styled.default.input`
   border-radius: 3px;
   &:focus{
     outline: 0;
+    border-color: #4a90e2;
   }
 `;
 

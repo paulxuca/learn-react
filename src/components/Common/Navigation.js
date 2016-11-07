@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router';
 import Button from '../Button';
+import Text from './Text';
 
 
 const NavigationContainer = styled.default.div`
@@ -32,7 +33,10 @@ export default () => (
         color="#4a90e2"
         important
       >
-        Register for Account
+        <Text
+          size={12}
+          weight={400}
+        >Register for account</Text>
       </Button>
       <Link to="/users/sign_in">
         <Button
@@ -40,7 +44,10 @@ export default () => (
           color="#aebdc1"
           hover="#393d40"
         >
-          Sign in
+          <Text
+            size={12}
+            weight={400}
+          >Sign in</Text>
         </Button>
       </Link>
     </NavigationSection>

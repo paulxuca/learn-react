@@ -19,6 +19,10 @@ const ButtonElement = styled.default.button`
   transition: all 0.25s;
   cursor: pointer;
   margin: 10px;
+  &:focus {
+    outline: 0;
+  }
+  ${props => props.rounded && 'border-radius: 100px'};
   ${(props) => {
     if (props.important) {
       return `
@@ -32,7 +36,6 @@ const ButtonElement = styled.default.button`
     } else if (props.filled) {
       return `
         background-color: ${props.color};
-        border-radius: 100px;
         &:hover {
           background-color: ${props.hover};
         }
@@ -55,6 +58,7 @@ export default function Button({
   large,
   filled,
   height,
+  rounded,
 }) {
   return (
     <ButtonElement
@@ -64,13 +68,10 @@ export default function Button({
       width={width}
       large={large}
       filled={filled}
+      rounded={rounded}
       height={height}
     >
-      <Text
-        size={large ? 14 : 12}
-        weight={400}
-        color={filled && 'white'}
-      >{children}</Text>
+      {children}
     </ButtonElement>
   );
 }
@@ -84,5 +85,6 @@ Button.propTypes = {
   hover: PropTypes.string,
   width: PropTypes.number,
   height: PropTypes.number,
+  rounded: PropTypes.bool,
 };
 

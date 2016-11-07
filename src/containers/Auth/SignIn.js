@@ -5,7 +5,7 @@ import Text from '../../components/Common/Text';
 import AuthContainer from '../../components/Auth/Container';
 import Input from '../../components/Auth/Input';
 import Button from '../../components/Button';
-import IconButton from '../../components/Button/IconButton';
+import AuthIconImages from '../../static/assets/social_icons.png';
 
 
 const SignInSection = styled.default.div`
@@ -17,6 +17,19 @@ const SignInSection = styled.default.div`
   justify-content: center;
   align-items: center;
   flex-direction: ${props => props.row ? 'row' : 'column'};
+`;
+
+const IconImage = styled.default.div`
+  background-image: url(${AuthIconImages});
+  ${props => {
+    if (props.type === 'google') {
+      return 'background-position: 0px 0;';
+    }
+    return 'background-position: -60px 0;';
+  }}
+  width: 30px;
+  height: 30px;
+  margin: 0 auto;
 `;
 
 class SignIn extends React.Component {
@@ -53,16 +66,24 @@ class SignIn extends React.Component {
             height={40}
             large
             filled
+            rounded
           >
-            Sign in
+            <Text
+              size={14}
+              weight={500}
+              color="white"
+            >Sign in</Text>
           </Button>
         </SignInSection>
-        <SignInSection height={100}>
-          <Text size={14} weight={400} color="#575a5b">Or sign in with...</Text>
+        <SignInSection height={100} margins="20px">
+          <Text size={12} weight={600} color="#575a5b">Or sign in with...</Text>
           <SignInSection height={50} row>
-            <IconButton />
-            <IconButton />
-            <IconButton />
+            <Button color="#DD4D41" hover="#e05d52" width={100} height={40} filled>
+              <IconImage type="google" />
+            </Button>
+            <Button color="#4C6CA6" hover="#5576b1" width={100} height={40} filled>
+              <IconImage type="facebook" />
+            </Button>
           </SignInSection>
         </SignInSection>
       </AuthContainer>
