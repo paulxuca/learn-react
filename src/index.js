@@ -4,6 +4,9 @@ import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { injectGlobal } from 'styled-components';
+import { initFirebase, getProviders } from './utils/firebase';
+import storeConstructor from './stores';
+
 import Routing from './Routing';
 
 injectGlobal`
@@ -14,10 +17,13 @@ injectGlobal`
     font-size: 12px;
   }
 `;
+initFirebase();
+const authProviders = getProviders();
+const store = storeConstructor(authProviders);
 
 render(
   <AppContainer>
-    <Routing />
+    <Routing store={store} />
   </AppContainer>,
   document.getElementById('root')
 );
@@ -28,7 +34,7 @@ if (module.hot) {
 
     render(
       <AppContainer>
-        <NextLoadedApp />
+        <NextLoadedApp store={store} />
       </AppContainer>,
       document.getElementById('root')
     );

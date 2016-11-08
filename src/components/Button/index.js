@@ -59,6 +59,7 @@ export default function Button({
   filled,
   height,
   rounded,
+  onClick,
 }) {
   return (
     <ButtonElement
@@ -70,6 +71,7 @@ export default function Button({
       filled={filled}
       rounded={rounded}
       height={height}
+      onClick={onClick}
     >
       {children}
     </ButtonElement>
@@ -85,6 +87,7 @@ Button.propTypes = {
   hover: PropTypes.string,
   width: PropTypes.number,
   height: PropTypes.number,
+  onClick: PropTypes.func,
   rounded: PropTypes.bool,
 };
 

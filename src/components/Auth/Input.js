@@ -28,7 +28,11 @@ const InputElement = styled.default.input`
   border-radius: 3px;
   &:focus{
     outline: 0;
-    border-color: #4a90e2;
+    border-color: #8AC5C6;
+    box-shadow: 0px 0px 6px 0px #669696;
+  }
+  &:hover{
+    background: rgba(255, 255, 235, 0.8);
   }
 `;
 

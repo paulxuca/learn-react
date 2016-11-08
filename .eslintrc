@@ -5,7 +5,8 @@
     "strict": 0,
     "react/jsx-filename-extension": 0,
     "import/no-extraneous-dependencies": 0,
-    "react/prefer-stateless-function": 0
+    "react/prefer-stateless-function": 0,
+    "react/forbid-prop-types": 1
   },
   "ignore": [
     "vendors/*",

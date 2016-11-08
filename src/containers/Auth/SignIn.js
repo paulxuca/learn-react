@@ -1,38 +1,33 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import styled from 'styled-components';
+import { inject, observer } from 'mobx-react';
 
 import Text from '../../components/Common/Text';
 import AuthContainer from '../../components/Auth/Container';
 import Input from '../../components/Auth/Input';
 import Button from '../../components/Button';
-import AuthIconImages from '../../static/assets/social_icons.png';
-
 
 const SignInSection = styled.default.div`
   flex: 1;
   display: flex;
   max-height: ${props => props.height || 150}px;
   margin: ${props => props.margins || '5px'};
-  width: 90%;
+  width: ${props => props.width || '100%'};
   justify-content: center;
   align-items: center;
   flex-direction: ${props => props.row ? 'row' : 'column'};
 `;
 
-const IconImage = styled.default.div`
-  background-image: url(${AuthIconImages});
-  ${props => {
-    if (props.type === 'google') {
-      return 'background-position: 0px 0;';
-    }
-    return 'background-position: -60px 0;';
-  }}
-  width: 30px;
-  height: 30px;
-  margin: 0 auto;
+const SocialIcon = styled.default.i`
+  color: white;
 `;
 
+@inject('store') @observer
 class SignIn extends React.Component {
+  static propTypes = {
+    store: PropTypes.object,
+  };
+
   constructor() {
     super();
     this.state = {
@@ -42,47 +37,49 @@ class SignIn extends React.Component {
   }
 
   render() {
+    const { loginWithPopup } = this.props.store.auth;
     return (
       <AuthContainer>
         <Text size={22} weight={700} color="#575a5b">Sign in</Text>
-        <Text size={14} weight={400} color="#aebdc1">for access to courses and lessons</Text>
+        <Text size={14} weight={400} color="#aebdc1">to get started and access courses</Text>
         <SignInSection height={200} margins="40px 10px 10px 10px">
           <Input
             type="text"
             label="Your email address"
+            placeholder="diane.huang@email.com"
             value={this.state.email}
             onChange={e => this.setState({ email: e.target.value })}
           />
           <Input
             type="password"
             label="Your password"
+            placeholder="password"
             onChange={e => this.setState({ password: e.target.value })}
             value={this.state.password}
           />
           <Button
-            hover="#1c91a8"
-            color="#21abc7"
+            color="#8AC5C6"
+            hover="#98cccd"
             width={200}
             height={40}
             large
             filled
             rounded
           >
-            <Text
-              size={14}
-              weight={500}
-              color="white"
-            >Sign in</Text>
+            <Text size={14} weight={500} color="white">Sign in</Text>
           </Button>
         </SignInSection>
-        <SignInSection height={100} margins="20px">
-          <Text size={12} weight={600} color="#575a5b">Or sign in with...</Text>
+        <SignInSection height={100} margins="10px">
+          <Text size={12} weight={400} color="#575a5b">Or Sign in With...</Text>
           <SignInSection height={50} row>
-            <Button color="#DD4D41" hover="#e05d52" width={100} height={40} filled>
-              <IconImage type="google" />
+            <Button color="black" hover="#1b1a1a" width={100} height={40} onClick={() => loginWithPopup('github')} filled>
+              <SocialIcon className="fa fa-github" />
             </Button>
-            <Button color="#4C6CA6" hover="#5576b1" width={100} height={40} filled>
-              <IconImage type="facebook" />
+            <Button color="#4C6CA6" hover="#5576b1" width={100} height={40} onClick={() => loginWithPopup('facebook')} filled>
+              <SocialIcon className="fa fa-facebook" />
+            </Button>
+            <Button color="#1DA1F4" hover="#3badf5" width={100} height={40} onClick={() => loginWithPopup('twitter')} filled>
+              <SocialIcon className="fa fa-twitter" />
             </Button>
           </SignInSection>
         </SignInSection>
