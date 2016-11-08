@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import styled from 'styled-components';
 
 const AppContainer = styled.default.div`
@@ -20,4 +20,5 @@ App.propTypes = {
 };
 
 export default App;
+
 

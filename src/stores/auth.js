@@ -4,22 +4,27 @@ import {
     subscribeToAuthChange,
     registerUser,
     loginUser,
-    getCurrentUser,
 } from '../utils/firebase';
+import {
+  set,
+  get,
+} from '../utils/storage';
+
+function authStateObserver(user) {
+  set('user', JSON.stringify(user));
+}
 
 class Auth {
-  @observable userAccount = getCurrentUser();
+  @observable userAccount = false;
+  @observable isAuthenticating = false;
   @observable authError = false;
+  @observable isAuthenticated = false;
 
   constructor(providers) {
     this.providers = providers;
     this.loginWithPopup = this.loginWithPopup.bind(this);
-    this.authStateObserver = this.authStateObserver.bind(this);
-    subscribeToAuthChange(this.authStateObserver);
-  }
-
-  authStateObserver(user) {
-    this.userAccount = user;
+    this.attemptLocalAuth = this.attemptLocalAuth.bind(this);
+    subscribeToAuthChange(authStateObserver);
   }
 
   async loginWithPopup(type) {
@@ -29,6 +34,16 @@ class Auth {
     } catch (error) {
       this.authError = error;
     }
+  }
+
+  async attemptLocalAuth() {
+    this.isAuthenticating = true;
+    const userOrNull = await get('user');
+    if (userOrNull) {
+      this.isAuthenticated = true;
+      this.userAccount = JSON.parse(userOrNull);
+    }
+    this.isAuthenticating = false;
   }
 
   async createAccount(email, password) {

@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import styled from 'styled-components';
 import { inject, observer } from 'mobx-react';
+import { Redirect } from 'react-router';
 
 import Text from '../../components/Common/Text';
 import AuthContainer from '../../components/Auth/Container';
@@ -37,7 +38,15 @@ class SignIn extends React.Component {
   }
 
   render() {
-    const { loginWithPopup, loginAccount } = this.props.store.auth;
+    const {
+        loginWithPopup,
+        loginAccount,
+        isAuthenticating,
+        isAuthenticated,
+    } = this.props.store.auth;
+    if (isAuthenticating) return null;
+    if (isAuthenticated) return <Redirect to="/courses" />;
+
     return (
       <AuthContainer>
         <Text size={22} weight={700} color="#575a5b">Sign in</Text>
