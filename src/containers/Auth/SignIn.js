@@ -37,7 +37,7 @@ class SignIn extends React.Component {
   }
 
   render() {
-    const { loginWithPopup } = this.props.store.auth;
+    const { loginWithPopup, loginAccount } = this.props.store.auth;
     return (
       <AuthContainer>
         <Text size={22} weight={700} color="#575a5b">Sign in</Text>
@@ -58,6 +58,7 @@ class SignIn extends React.Component {
             value={this.state.password}
           />
           <Button
+            onClick={() => loginAccount(this.state.email, this.state.password)}
             color="#8AC5C6"
             hover="#98cccd"
             width={200}

@@ -1,8 +1,14 @@
 import { observable } from 'mobx';
-import { loginWithProvider, subscribeToAuthChange } from '../utils/firebase';
+import {
+    loginWithProvider,
+    subscribeToAuthChange,
+    registerUser,
+    loginUser,
+    getCurrentUser,
+} from '../utils/firebase';
 
 class Auth {
-  @observable userAccount = false;
+  @observable userAccount = getCurrentUser();
   @observable authError = false;
 
   constructor(providers) {
@@ -20,6 +26,22 @@ class Auth {
     const usedProvider = this.providers[type];
     try {
       await loginWithProvider(usedProvider);
+    } catch (error) {
+      this.authError = error;
+    }
+  }
+
+  async createAccount(email, password) {
+    try {
+      await registerUser(email, password);
+    } catch (error) {
+      this.authError = error;
+    }
+  }
+
+  async loginAccount(email, password) {
+    try {
+      await loginUser(email, password);
     } catch (error) {
       this.authError = error;
     }
