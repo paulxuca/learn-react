@@ -1,11 +1,14 @@
 import React from 'react';
+import ProtectedRoute from '../../components/Common/ProtectedRoute';
 
 class CoursesPage extends React.Component { // eslint-disable-line
   render() {
     return (
-      <div>
+      <ProtectedRoute>
+        <div>
 
-      </div>
+        </div>
+      </ProtectedRoute>
     );
   }
 }

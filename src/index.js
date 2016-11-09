@@ -13,9 +13,6 @@ injectGlobal`
   body {
     font-family: Open Sans, Helvetica, sans-serif;
   }
-  p, span {
-    font-size: 12px;
-  }
 `;
 initFirebase();
 const authProviders = getProviders();

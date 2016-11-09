@@ -22,6 +22,7 @@ class Auth {
 
   constructor(providers) {
     this.providers = providers;
+    this.isAuthenticating = true;
     this.loginWithPopup = this.loginWithPopup.bind(this);
     this.attemptLocalAuth = this.attemptLocalAuth.bind(this);
     subscribeToAuthChange(authStateObserver);

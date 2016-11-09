@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const path = require('path');
 const config = require('./config');
 const app = require('./app').app;
+const middleware = require('./middleware');
 
 
 function createVendorBundle() {
@@ -24,9 +25,6 @@ function createVendorBundle() {
           context: path.join(process.cwd(), 'bundles'),
         }),
       ],
-      resolve: {
-        modulesDirectories: ['node_modules'],
-      },
     });
     compiler.run((err, stats) => {
       if (err) reject(err);
@@ -42,7 +40,7 @@ function generateBuild(id, entryFile) {
       entry: [
         `webpack-hot-middleware/client?path=http://localhost:${config.http.port}/__webpack_hmr`,
         'babel-polyfill',
-        path.join(process.cwd(), 'server', 'bundles', `bundle_${id}`, entryFile)
+        path.join(process.cwd(), 'server', 'bundles', `bundle_${id}`, entryFile),
       ],
       output: {
         path: path.join(process.cwd(), 'server', 'builds', `/build_${id}`),
@@ -69,8 +67,15 @@ function generateBuild(id, entryFile) {
       ],
     };
     const compiler = webpack(webpackConfig);
-    app.use(require('webpack-dev-middleware')(compiler, { noInfo: true, publicPath: config.output.publicPath }));
-    app.use(require('webpack-hot-middleware')(compiler));
+    const hotMiddleware = require('webpack-hot-middleware')(compiler);
+    const devMiddleware = require('webpack-dev-middleware')(compiler, { noInfo: true, publicPath: webpackConfig.output.publicPath });
+
+    // Set the middleware in memory
+    middleware.wrapper.set(id, devMiddleware, hotMiddleware);
+    const setMiddleware = middleware.wrapper.get(id);
+
+    app.use(setMiddleware.dev);
+    app.use(setMiddleware.hot);
     resolve(`/builds/build_${id}`);
   });
 }

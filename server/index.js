@@ -14,6 +14,7 @@ setInterval(models.removeInactiveSessions, config.server.cleanupTime);
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 app.use(bodyParser.json({ limit: '10mb' }));
 
+// setInterval(() => console.log(app._router.stack), 2000);
 app.post('/api/create', routes.create);
 app.listen(config.http.port, (err) => {
   if (err) {
