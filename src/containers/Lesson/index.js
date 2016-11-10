@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import Editor from '../../components/Editor';
-import { Pane } from '../../components/Lesson';
+import Pane from '../../components/Lesson/Pane';
 import ProtectedRoute from '../../components/Common/ProtectedRoute';
-
+import mock from './mock';
 
 const LessonWindow = styled.default.div`
   flex: 1;
@@ -36,7 +36,9 @@ export default class Lesson extends Component {
           <LessonBar />
           <LessonPane style={{ display: 'flex' }}>
             <LessonPane backgroundColor="#f7f9f9" flex>
-              <Pane />
+              <Pane
+                {...mock}
+              />
             </LessonPane>
             <LessonPane>
               <Editor />
