@@ -14,6 +14,7 @@
 .cm-s-learncode .CodeMirror-gutters {
     background: #202634;
     border-right: 1px;
+    padding-right: 5px;
 }
 
 .cm-s-learncode .CodeMirror-cursor {

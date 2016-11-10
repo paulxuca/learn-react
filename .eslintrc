@@ -10,7 +10,8 @@
     "new-cap": 0
   },
   "globals": {
-    "document": true
+    "document": true,
+    "window": true
   },
   "ignore": [
     "vendors/*",

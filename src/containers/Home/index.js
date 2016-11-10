@@ -1,11 +1,14 @@
 import React from 'react';
+import UnprotectedRoute from '../../components/Common/UnprotectedRoute';
 
 class Home extends React.Component { // eslint-disable-line
   render() {
     return (
-      <div>
-        Hello
-      </div>
+      <UnprotectedRoute>
+        <div>
+          Hello
+        </div>
+      </UnprotectedRoute>
     );
   }
 }

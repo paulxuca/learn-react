@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import Editor from '../../components/Editor';
+import { Pane } from '../../components/Lesson';
 import ProtectedRoute from '../../components/Common/ProtectedRoute';
 
 
@@ -15,6 +16,8 @@ const LessonWindow = styled.default.div`
 
 const LessonPane = styled.default.div`
   flex: 1;
+  ${props => props.flex && 'display: flex;'}
+  ${props => props.backgroundColor && `background-color: ${props.backgroundColor};`}
 `;
 
 const LessonBar = styled.default.div`
@@ -32,7 +35,9 @@ export default class Lesson extends Component {
         <LessonWindow>
           <LessonBar />
           <LessonPane style={{ display: 'flex' }}>
-            <LessonPane />
+            <LessonPane backgroundColor="#f7f9f9" flex>
+              <Pane />
+            </LessonPane>
             <LessonPane>
               <Editor />
             </LessonPane>

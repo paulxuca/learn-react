@@ -1,8 +1,6 @@
 import React, { PropTypes } from 'react';
 import styled from 'styled-components';
 
-import Text from '../Common/Text';
-
 const ButtonElement = styled.default.button`
   flex: 1;
   ${props => props.width && `

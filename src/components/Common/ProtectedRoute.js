@@ -19,6 +19,9 @@ class ProtectedRoute extends Component {
     const { isAuthenticating, isAuthenticated } = store.auth;
     if (!isAuthenticating) {
       if (isAuthenticated) {
+        if (window.location.pathname === '/users/sign_in') {
+          return <Redirect to="/learn" />;
+        }
         return children;
       }
       return <Redirect to="/users/sign_in" />;

@@ -10,7 +10,6 @@ const NavigationContainer = styled.default.div`
   max-height: 60px;
   flex: 1;
   background: white;
-  border-bottom: 1px solid #EEE;
   flex-direction: row;
 `;
 
@@ -43,9 +42,7 @@ const NavigationBarLink = styled.default(Link)`
   display: flex;
   height: 100%;
   font-size: 14px;
-  &:not(:first-child) {
-    margin-left: 20px;
-  }
+  margin: 0 10px;
 `;
 
 @inject('store') @observer
@@ -70,7 +67,7 @@ export default class Navigation extends Component {
           <NavigationSection width={200} />
           <NavigationSection>
             <NavigationBarContainer>
-              <NavigationBarLink to="/courses" activeStyle={{ borderColor: '#3B3B3D' }}>Learn</NavigationBarLink>
+              <NavigationBarLink to="/learn" activeStyle={{ borderColor: '#3B3B3D' }}>Learn</NavigationBarLink>
               <NavigationBarLink to="/catalog" activeStyle={{ borderColor: '#3B3B3D' }}>Catalog</NavigationBarLink>
             </NavigationBarContainer>
           </NavigationSection>
