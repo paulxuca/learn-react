@@ -1,5 +1,6 @@
 import 'codemirror/lib/codemirror.css';
 import React, { PropTypes, Component } from 'react';
+import { inject, observer } from 'mobx-react';
 import styled from 'styled-components';
 import CodeMirror from 'codemirror';
 
@@ -19,21 +20,43 @@ const EditorWindow = styled.default.div`
   background-color: #2B303B;
 `;
 
+@observer @inject('store')
 class Editor extends Component {
+  static propTypes = {
+    store: PropTypes.object,
+    fileIndex: PropTypes.number,
+  };
+
   constructor() {
     super();
     this.setEditorValue = this.setEditorValue.bind(this);
+    this.onCodeChange = this.onCodeChange.bind(this);
   }
 
   componentDidMount() {
+    const { currentFile } = this.props.store.editor;
+
+
     this.codemirror = CodeMirror(document.getElementById('code'), {
       theme: 'learncode',
-      value: '',
+      value: currentFile.contents,
       lineNumbers: true,
       lineWrapping: false,
       mode: 'htmlmixed',
       tabSize: 2,
     });
+    this.codemirror.on('change', this.onCodeChange);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.fileIndex !== this.props.fileIndex) {
+      this.props.store.editor.updateOldDoc(this.codemirror.getValue(), this.props.fileIndex);
+      this.codemirror.swapDoc(CodeMirror.Doc(nextProps.currentFile.contents));
+    }
+  }
+
+  onCodeChange() {
+    this.props.store.editor.updatedCode();
   }
 
   setEditorValue(value) {

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
+import { inject, observer } from 'mobx-react';
 import styled from 'styled-components';
 import Text from '../Common/Text';
 import Card from './Card';
@@ -36,84 +37,77 @@ const ChevronArrowButton = styled.default.button`
   }
 `;
 
-const Pane = ({
-  totalSteps,
-  currentStep,
-  sectionTitle,
-  sectionNumber,
-  incrementStep,
-  decrementStep,
-  goToStep,
-  currentStepData,
-}) => {
-  return (
-    <PaneContainer>
-      <PaneSection flex={1}>
-        <Text
-          size={24}
-          weight={600}
-          padding="0 10px"
-          style={{
-            borderRight: '1px solid #DDD',
-          }}
-        >
-          {sectionNumber}
-        </Text>
-        <Text
-          size={24}
-          weight={300}
-          margin="0 10px"
-        >
-          {sectionTitle}
-        </Text>
-      </PaneSection>
-      <PaneSection flex={0.5} row>
-        <Text
-          size={20}
-          weight={400}
-          color="#899b9f"
-        >
-          Step {currentStep}/{totalSteps}
-        </Text>
-        <ChevronArrowButton
-          onClick={decrementStep}
-        >
-          <ChevronArrow
-            className="fa fa-chevron-left"
-          />
-        </ChevronArrowButton>
-        <ChevronArrowButton
-          onClick={incrementStep}
-        >
-          <ChevronArrow
-            className="fa fa-chevron-right"
-          />
-        </ChevronArrowButton>
-        <Navigator
-          totalSteps={totalSteps}
-          activeStep={currentStep}
-          goToStep={goToStep}
-        />
-      </PaneSection>
-      <PaneSection flex={4}>
-        <Card header={currentStepData} />
-      </PaneSection>
-    </PaneContainer>
-  );
-};
+@inject('store') @observer
+export default class Pane extends Component {
+  static propTypes = {
+    store: PropTypes.object,
+  }
 
-Pane.propTypes = {
-  sectionTitle: PropTypes.string,
-  sectionNumber: PropTypes.number,
-  currentStep: PropTypes.number,
-  incrementStep: PropTypes.func,
-  decrementStep: PropTypes.func,
-  totalSteps: PropTypes.number,
-  goToStep: PropTypes.func,
-  currentStepData: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string,
-  ]),
-};
+  render() {
+    const {
+    totalSteps,
+    currentStep,
+    sectionTitle,
+    sectionNumber,
+    incrementStep,
+    decrementStep,
+    goToStep,
+    currentSectionData,
+  } = this.props.store.lesson;
 
-export default Pane;
+    return (
+      <PaneContainer>
+        <PaneSection flex={1}>
+          <Text
+            size={24}
+            weight={600}
+            padding="0 10px"
+            style={{
+              borderRight: '1px solid #DDD',
+            }}
+          >
+            {sectionNumber}
+          </Text>
+          <Text
+            size={24}
+            weight={300}
+            margin="0 10px"
+          >
+            {sectionTitle}
+          </Text>
+        </PaneSection>
+        <PaneSection flex={0.5} row>
+          <Text
+            size={20}
+            weight={400}
+            color="#899b9f"
+          >
+            Step {currentStep}/{totalSteps}
+          </Text>
+          <ChevronArrowButton
+            onClick={() => decrementStep()}
+          >
+            <ChevronArrow
+              className="fa fa-chevron-left"
+            />
+          </ChevronArrowButton>
+          <ChevronArrowButton
+            onClick={() => incrementStep()}
+          >
+            <ChevronArrow
+              className="fa fa-chevron-right"
+            />
+          </ChevronArrowButton>
+          <Navigator
+            totalSteps={totalSteps}
+            activeStep={currentStep}
+            goToStep={goToStep}
+          />
+        </PaneSection>
+        <PaneSection flex={4}>
+          <Card header={currentSectionData[currentStep]} />
+        </PaneSection>
+      </PaneContainer>
+    );
+  }
+}

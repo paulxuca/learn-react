@@ -38,18 +38,9 @@ export default class Lesson extends Component {
   };
 
   render() {
-    const { lesson } = this.props.store;
-    const {
-      totalSteps,
-      currentStep,
-      sectionTitle,
-      sectionNumber,
-      incrementStep,
-      decrementStep,
-      goToStep,
-      currentSectionData,
-      lessonName,
-    } = lesson;
+    const { lesson, editor } = this.props.store;
+    const { lessonName } = lesson;
+    const { currentFile, currentSelectedFile } = editor;
 
     return (
       <ProtectedRoute>
@@ -82,19 +73,13 @@ export default class Lesson extends Component {
               flexValue={1}
               flex
             >
-              <Pane
-                totalSteps={totalSteps}
-                currentStep={currentStep}
-                sectionTitle={sectionTitle}
-                sectionNumber={sectionNumber}
-                incrementStep={() => incrementStep()}
-                decrementStep={() => decrementStep()}
-                goToStep={goToStep}
-                currentStepData={currentSectionData[currentStep]}
-              />
+              <Pane />
             </LessonPane>
             <LessonPane flexValue={2}>
-              <Editor />
+              <Editor
+                currentFile={currentFile}
+                fileIndex={currentSelectedFile}
+              />
             </LessonPane>
           </LessonPane>
         </LessonWindow>

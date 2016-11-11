@@ -2,16 +2,15 @@ export default {
   files: [{
     fileName: 'index.js',
     isEntry: true,
-    contents: "import React from 'react'",
+    contents: "import React from 'react';",
   }, {
     fileName: 'index.html',
     isEntry: false,
-    contents: `
-      <html>
-        <body>
-          <div id="app />
-        </body>
-      </html>
+    contents: `<html>
+  <body>
+    <div id="app />
+  </body>
+</html>
     `,
   }],
 };
