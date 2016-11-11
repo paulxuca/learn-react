@@ -8,16 +8,23 @@ const CardContainer = styled.default.div`
   border-radius: 2px;
   position: relative;
   min-height: 100px;
+  padding: 20px;
+  font-size: 13.6px;
+  font-weight: 400;
+  line-height: 20px;
 `;
 
-const LessonCard = ({ children }) => (
+const LessonCard = ({ header }) => (
   <CardContainer>
-    {children}
+    <span dangerouslySetInnerHTML={{ __html: header }} />
   </CardContainer>
 );
 
 LessonCard.propTypes = {
-  children: PropTypes.node,
+  header: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string,
+  ]),
 };
 
 export default LessonCard;

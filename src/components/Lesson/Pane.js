@@ -19,23 +19,33 @@ const PaneSection = styled.default.div`
 `;
 
 const ChevronArrow = styled.default.i`
-  margin: 0 6px;
   color: #ced8da;
   font-size: 20px;
   transition: all 0.2s;
-  cursor: pointer;
   &:hover {
     color: #575A5B;
   }
+`;
+
+const ChevronArrowButton = styled.default.button`
+  &:focus {
+    outline:0;
+  }
   &:first-of-type {
-    margin-left: 20px;
+    margin-left: 10px;
   }
 `;
 
-const Pane = ({ step, lesson }) => {
-  const { stepName, stepNumber } = step;
-  const { totalTask, currentStep } = lesson;
-
+const Pane = ({
+  totalSteps,
+  currentStep,
+  sectionTitle,
+  sectionNumber,
+  incrementStep,
+  decrementStep,
+  goToStep,
+  currentStepData,
+}) => {
   return (
     <PaneContainer>
       <PaneSection flex={1}>
@@ -47,14 +57,14 @@ const Pane = ({ step, lesson }) => {
             borderRight: '1px solid #DDD',
           }}
         >
-          {stepNumber}
+          {sectionNumber}
         </Text>
         <Text
           size={24}
           weight={300}
           margin="0 10px"
         >
-          {stepName}
+          {sectionTitle}
         </Text>
       </PaneSection>
       <PaneSection flex={0.5} row>
@@ -63,29 +73,47 @@ const Pane = ({ step, lesson }) => {
           weight={400}
           color="#899b9f"
         >
-          Goal {currentStep}/{totalTask}
+          Step {currentStep}/{totalSteps}
         </Text>
-        <ChevronArrow
-          className="fa fa-chevron-left"
-        />
-        <ChevronArrow
-          className="fa fa-chevron-right"
-        />
+        <ChevronArrowButton
+          onClick={decrementStep}
+        >
+          <ChevronArrow
+            className="fa fa-chevron-left"
+          />
+        </ChevronArrowButton>
+        <ChevronArrowButton
+          onClick={incrementStep}
+        >
+          <ChevronArrow
+            className="fa fa-chevron-right"
+          />
+        </ChevronArrowButton>
         <Navigator
-          totalSteps={totalTask}
+          totalSteps={totalSteps}
           activeStep={currentStep}
+          goToStep={goToStep}
         />
       </PaneSection>
       <PaneSection flex={4}>
-        <Card />
+        <Card header={currentStepData} />
       </PaneSection>
     </PaneContainer>
   );
 };
 
 Pane.propTypes = {
-  step: PropTypes.object,
-  lesson: PropTypes.object,
+  sectionTitle: PropTypes.string,
+  sectionNumber: PropTypes.number,
+  currentStep: PropTypes.number,
+  incrementStep: PropTypes.func,
+  decrementStep: PropTypes.func,
+  totalSteps: PropTypes.number,
+  goToStep: PropTypes.func,
+  currentStepData: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string,
+  ]),
 };
 
 export default Pane;

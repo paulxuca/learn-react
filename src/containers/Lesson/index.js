@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { inject, observer } from 'mobx-react';
 import styled from 'styled-components';
 
 import Editor from '../../components/Editor';
@@ -15,7 +16,7 @@ const LessonWindow = styled.default.div`
 `;
 
 const LessonPane = styled.default.div`
-  flex: 1;
+  flex:${props => props.flexValue};
   ${props => props.flex && 'display: flex;'}
   ${props => props.backgroundColor && `background-color: ${props.backgroundColor};`}
 `;
@@ -28,19 +29,47 @@ const LessonBar = styled.default.div`
   max-height: 50px;
 `;
 
+@inject('store') @observer
 export default class Lesson extends Component {
+  static propTypes = {
+    store: PropTypes.object,
+  };
+
   render() {
+    const { lesson } = this.props.store;
+    const {
+      totalSteps,
+      currentStep,
+      sectionTitle,
+      sectionNumber,
+      incrementStep,
+      decrementStep,
+      goToStep,
+      currentSectionData,
+    } = lesson;
+
     return (
       <ProtectedRoute>
         <LessonWindow>
           <LessonBar />
-          <LessonPane style={{ display: 'flex' }}>
-            <LessonPane backgroundColor="#f7f9f9" flex>
+          <LessonPane flex flexValue={1}>
+            <LessonPane
+              backgroundColor="#f7f9f9"
+              flexValue={1}
+              flex
+            >
               <Pane
-                {...mock}
+                totalSteps={totalSteps}
+                currentStep={currentStep}
+                sectionTitle={sectionTitle}
+                sectionNumber={sectionNumber}
+                incrementStep={() => incrementStep()}
+                decrementStep={() => decrementStep()}
+                goToStep={goToStep}
+                currentStepData={currentSectionData[currentStep]}
               />
             </LessonPane>
-            <LessonPane>
+            <LessonPane flexValue={2}>
               <Editor />
             </LessonPane>
           </LessonPane>

@@ -37,7 +37,7 @@ const StepCounter = styled.default.a`
   }
 `;
 
-const Navigator = ({ totalSteps, activeStep, onClick, completeSteps }) => {
+const Navigator = ({ totalSteps, activeStep, goToStep, onClick, completeSteps }) => {
   const totalStepElement = [];
 
   for (let i = 0; i < totalSteps; i += 1) {
@@ -45,6 +45,7 @@ const Navigator = ({ totalSteps, activeStep, onClick, completeSteps }) => {
       <StepCounter
         key={i}
         active={i + 1 === activeStep}
+        onClick={() => goToStep(i + 1)}
       >
         <span>{i + 1}</span>
       </StepCounter>
@@ -63,6 +64,7 @@ Navigator.propTypes = {
   activeStep: PropTypes.number,
   onClick: PropTypes.func,
   completeSteps: PropTypes.arrayOf([PropTypes.number]),
+  goToStep: PropTypes.func,
 };
 
 export default Navigator;

@@ -13,6 +13,15 @@ injectGlobal`
   body {
     font-family: Open Sans, Helvetica, sans-serif;
   }
+  code {
+    background: #eeefef;
+    border-radius: 3px;
+    border: 1px solid #cdcece;
+    color: #ed5111;
+    font-size: 90%;
+    padding: 0.15em 0.35em;
+    word-break: break-word;
+  }
 `;
 initFirebase();
 const authProviders = getProviders();

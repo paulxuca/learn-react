@@ -16,7 +16,6 @@ const EditorWindowContainer = styled.default.div`
 const EditorWindow = styled.default.div`
   flex: 1;
   height: 100%;
-  width: 800px;
   background-color: #2B303B;
 `;
 
