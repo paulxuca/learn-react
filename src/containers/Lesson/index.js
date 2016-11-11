@@ -3,9 +3,10 @@ import { inject, observer } from 'mobx-react';
 import styled from 'styled-components';
 
 import Editor from '../../components/Editor';
+import FileSelector from '../../components/Editor/FileSelector';
 import Pane from '../../components/Lesson/Pane';
 import ProtectedRoute from '../../components/Common/ProtectedRoute';
-import mock from './mock';
+import Text from '../../components/Common/Text';
 
 const LessonWindow = styled.default.div`
   flex: 1;
@@ -17,6 +18,7 @@ const LessonWindow = styled.default.div`
 
 const LessonPane = styled.default.div`
   flex:${props => props.flexValue};
+  ${props => props.center && 'justify-content: flex-start;align-items: center'}
   ${props => props.flex && 'display: flex;'}
   ${props => props.backgroundColor && `background-color: ${props.backgroundColor};`}
 `;
@@ -26,7 +28,7 @@ const LessonBar = styled.default.div`
   display: flex;
   background-color: #202634;
   border-bottom: 1px solid rgb(35, 46, 60);
-  max-height: 50px;
+  max-height: 60px;
 `;
 
 @inject('store') @observer
@@ -46,12 +48,34 @@ export default class Lesson extends Component {
       decrementStep,
       goToStep,
       currentSectionData,
+      lessonName,
     } = lesson;
 
     return (
       <ProtectedRoute>
         <LessonWindow>
-          <LessonBar />
+          <LessonBar>
+            <LessonPane
+              flex
+              flexValue={1}
+              center
+            >
+              <Text
+                color="white"
+                weight={300}
+                size={18}
+                margin="0 20px"
+              >
+                {lessonName}
+              </Text>
+            </LessonPane>
+            <LessonPane
+              flex
+              flexValue={2}
+            >
+              <FileSelector />
+            </LessonPane>
+          </LessonBar>
           <LessonPane flex flexValue={1}>
             <LessonPane
               backgroundColor="#f7f9f9"
