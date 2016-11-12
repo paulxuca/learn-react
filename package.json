@@ -23,6 +23,7 @@
     "express": "^4.14.0",
     "firebase": "^3.5.3",
     "fs-extra": "^1.0.0",
+    "htmlhint": "^0.9.13",
     "localforage": "^1.4.3",
     "memory-fs": "^0.3.0",
     "mobx": "^2.6.1",

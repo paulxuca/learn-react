@@ -8,6 +8,8 @@ import Pane from '../../components/Lesson/Pane';
 import ProtectedRoute from '../../components/Common/ProtectedRoute';
 import Text from '../../components/Common/Text';
 
+import { resolveType } from '../../utils/editor';
+
 const LessonWindow = styled.default.div`
   flex: 1;
   width: 100%;
@@ -77,6 +79,7 @@ export default class Lesson extends Component {
             </LessonPane>
             <LessonPane flexValue={2}>
               <Editor
+                fileType={resolveType(currentFile.fileName)}
                 currentFile={currentFile}
                 fileIndex={currentSelectedFile}
               />

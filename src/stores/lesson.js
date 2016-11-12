@@ -7,11 +7,12 @@ class Lesson {
   @observable sectionTitle;
   @observable sectionNumber;
   @observable lessonName;
-  @observable currentSectionData = mock.steps;
+  @observable currentSectionData;
 
   constructor() {
-    this.totalSteps = 4;
+    this.totalSteps = Object.keys(mock.steps).length;
     this.currentStep = 1;
+    this.currentSectionData = mock.steps;
     this.lessonName = 'Beginning with React and ES6';
     this.sectionTitle = 'Beginning';
     this.sectionNumber = 1;
