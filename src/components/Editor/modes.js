@@ -1,6 +1,9 @@
 /* eslint global-require: 0 */
 
-const setHTMLModeAndLinter = function (CodeMirror, cmInstance) {
+const loadedModes = [];
+
+const setHTMLModeAndLinter = (CodeMirror, cmInstance) => {
+  loadedModes.push('htmlmixed');
   const HTMLHint = require('htmlhint').HTMLHint;
   require('codemirror/mode/htmlmixed/htmlmixed.js');
   require('codemirror/addon/edit/matchtags.js');
@@ -15,6 +18,7 @@ const setHTMLModeAndLinter = function (CodeMirror, cmInstance) {
 };
 
 const setJSXModeAndLinter = (CodeMirror, cmInstance) => {
+  loadedModes.push('jsx');
   require('codemirror/mode/jsx/jsx.js');
   const eslint = require('./jslint');
   const linter = require('./linters/jsx');
@@ -32,6 +36,9 @@ const modeMapper = {
 };
 
 export default (mode, CM, instance) => {
+  if (loadedModes.indexOf(mode) > -1) {
+    return modeMapper[mode](CM, instance);
+  }
   return require.ensure([], () => {
     modeMapper[mode](CM, instance);
   });

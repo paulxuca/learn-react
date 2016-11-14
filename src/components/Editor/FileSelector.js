@@ -27,19 +27,31 @@ const FileSelectorItem = styled.default.li`
   }
 `;
 
-@inject('store') @observer
+const EditedIndicator = styled.default.div`
+  width: 5px;
+  height: 5px;
+  border-radius: 100%;
+  background-color: #eb1e64;
+  display: block;
+  margin-right: 10px;
+  visibility: ${props => props.isEdited ? 'visible' : 'hidden'};
+`;
+
+@observer
 export default class FileSelector extends Component {
   static propTypes = {
-    store: PropTypes.object,
+    editor: PropTypes.object,
   };
 
   render() {
     const {
         fileState,
+        saveState,
         currentSelectedFile,
         selectFile,
-    } = this.props.store.editor;
+    } = this.props.editor;
     const { files } = fileState;
+
 
     return (
       <FileSelectorContainer>
@@ -50,6 +62,9 @@ export default class FileSelector extends Component {
               active={currentSelectedFile === index}
               onClick={() => selectFile(index)}
             >
+              <EditedIndicator
+                isEdited={saveState[index].hasChanged}
+              />
               <Text
                 color="white"
                 size={14}

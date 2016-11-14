@@ -7,8 +7,10 @@ import styled from 'styled-components';
 import CodeMirror from 'codemirror';
 
 import modes from './modes';
-import './CodeEditorStyle.css';
+import './styles/CodeEditorStyle.css';
+import './styles/CodeEditorLint.css';
 
+const noop = () => {};
 
 const EditorWindowContainer = styled.default.div`
   flex: 1;
@@ -51,10 +53,10 @@ class Editor extends Component {
       lint: false,
       indentUnit: 2,
       autoCloseTags: true,
+      gutters: ['CodeMirror-lint-markers'],
       matchTags: {
         bothTags: true,
       },
-      gutters: ['CodeMirror-lint-markers'],
     });
     this.codemirror.on('change', this.onCodeChange);
     modes(this.props.fileType, CodeMirror, this.codemirror);
@@ -62,6 +64,7 @@ class Editor extends Component {
 
   componentWillReceiveProps(nextProps) {
     // Different mode
+    this.codemirror.on('change', noop);
     if (nextProps.fileType !== this.props.fileType) {
       modes(nextProps.fileType, CodeMirror, this.codemirror);
     }
@@ -69,12 +72,16 @@ class Editor extends Component {
     // Different File
     if (nextProps.fileIndex !== this.props.fileIndex) {
       this.props.store.editor.updateOldDoc(this.codemirror.getValue(), this.props.fileIndex);
-      this.codemirror.swapDoc(CodeMirror.Doc(nextProps.currentFile.contents));
+      this.codemirror.setValue(nextProps.currentFile.contents);
+      this.codemirror.getDoc().clearHistory();
     }
+    this.codemirror.on('change', this.onCodeChange);
   }
 
-  onCodeChange() {
-    this.props.store.editor.updatedCode();
+  onCodeChange(instance, event) {
+    if (event.origin !== 'setValue') {
+      this.props.store.editor.updatedCode();
+    }
   }
 
   setEditorValue(value) {

@@ -39,6 +39,26 @@ export default class Lesson extends Component {
     store: PropTypes.object,
   };
 
+  constructor() {
+    super();
+    this.handleSaveShortcut = this.handleSaveShortcut.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener('keydown', this.handleSaveShortcut);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleSaveShortcut);
+  }
+
+  handleSaveShortcut(event) {
+    if ((event.metaKey || event.ctrlKey) && event.keyCode === 83) {
+      event.preventDefault();
+      this.props.store.editor.saveCode();
+    }
+  }
+
   render() {
     const { lesson, editor } = this.props.store;
     const { lessonName } = lesson;
@@ -66,7 +86,9 @@ export default class Lesson extends Component {
               flex
               flexValue={2}
             >
-              <FileSelector />
+              <FileSelector
+                editor={editor}
+              />
             </LessonPane>
           </LessonBar>
           <LessonPane flex flexValue={1}>
