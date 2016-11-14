@@ -16,6 +16,7 @@
   "ignore": [
     "vendors/*",
     "bundles/*",
-    "builds/*"
+    "builds/*",
+    "jslint.js"
   ]
 }

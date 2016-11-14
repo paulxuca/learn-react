@@ -43,6 +43,8 @@ const compilerConfig = {
     timings: false,
     chunks: false,
     chunkModules: false,
+    assets: false,
+    warnings: false,
   },
 };
 

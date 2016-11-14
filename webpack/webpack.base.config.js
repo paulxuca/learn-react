@@ -50,11 +50,15 @@ module.exports = config => ({
     }],
   },
   plugins: [
-    new webpack.DefinePlugin({ 'process.env.IS_CLIENT': true }),
+    new webpack.DefinePlugin({
+      'process.env.IS_CLIENT': true,
+    }),
     new HtmlWebpackPlugin({
       hash: false,
       template: '../src/index.html',
     }),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.NoErrorsPlugin(),
     new ExtractTextPlugin({ filename: 'bundle.css', allChunks: true }),
   ].concat(config.plugins),
 });

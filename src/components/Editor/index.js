@@ -18,7 +18,7 @@ const EditorWindowContainer = styled.default.div`
 `;
 
 const EditorWindow = styled.default.div`
-  flex: 1;
+  flex: s1;
   height: 100%;
   background-color: #2B303B;
 `;
@@ -57,6 +57,7 @@ class Editor extends Component {
       gutters: ['CodeMirror-lint-markers'],
     });
     this.codemirror.on('change', this.onCodeChange);
+    modes(this.props.fileType, CodeMirror, this.codemirror);
   }
 
   componentWillReceiveProps(nextProps) {
