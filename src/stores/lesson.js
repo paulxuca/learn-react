@@ -10,12 +10,12 @@ class Lesson {
   @observable currentSectionData;
 
   constructor() {
-    this.totalSteps = Object.keys(mock.steps).length;
-    this.currentStep = 1;
-    this.currentSectionData = mock.steps;
-    this.lessonName = 'Beginning with React and ES6';
-    this.sectionTitle = 'Beginning';
     this.sectionNumber = 1;
+    this.currentStep = 1;
+    // this.totalSteps = Object.keys(mock.steps).length;
+    // this.currentSectionData = mock.steps;
+    // this.lessonName = 'Beginning with React and ES6';
+    // this.sectionTitle = 'Beginning';
 
     this.decrementStep = this.decrementStep.bind(this);
     this.incrementStep = this.incrementStep.bind(this);
@@ -32,6 +32,13 @@ class Lesson {
 
   goToStep(step) {
     this.currentStep = step;
+  }
+
+  async getLesson() {
+    const jsonData = await fetch('/api/test/getlesson', {
+      method: 'POST',
+    });
+    const data = await jsonData.json();
   }
 
 

@@ -11,7 +11,8 @@
   },
   "globals": {
     "document": true,
-    "window": true
+    "window": true,
+    "fetch": true
   },
   "ignore": [
     "vendors/*",

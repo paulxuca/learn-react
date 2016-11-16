@@ -37,11 +37,18 @@ const LessonBar = styled.default.div`
 export default class Lesson extends Component {
   static propTypes = {
     store: PropTypes.object,
+    params: PropTypes.object,
   };
 
   constructor() {
     super();
     this.handleSaveShortcut = this.handleSaveShortcut.bind(this);
+  }
+
+  componentWillMount() {
+    const { lessonid } = this.props.params;
+    const { lesson } = this.props.store;
+    lesson.getLesson();
   }
 
   componentDidMount() {

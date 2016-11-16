@@ -13,6 +13,13 @@ function create(req, res) {
   });
 }
 
+function getLesson(req, res) {
+  const mockLesson = require('./lessons/first'); // eslint-disable-line
+
+  res.status(200).json(mockLesson);
+}
+
 module.exports = {
   create,
+  getLesson,
 };

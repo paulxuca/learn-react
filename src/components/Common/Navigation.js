@@ -67,7 +67,7 @@ export default class Navigation extends Component {
           <NavigationSection width={200} />
           <NavigationSection>
             <NavigationBarContainer>
-              <NavigationBarLink to="/learn" activeStyle={{ borderColor: '#3B3B3D' }}>Learn</NavigationBarLink>
+              <NavigationBarLink to="/learn/lesson/1" activeStyle={{ borderColor: '#3B3B3D' }}>Learn</NavigationBarLink>
               <NavigationBarLink to="/catalog" activeStyle={{ borderColor: '#3B3B3D' }}>Catalog</NavigationBarLink>
             </NavigationBarContainer>
           </NavigationSection>

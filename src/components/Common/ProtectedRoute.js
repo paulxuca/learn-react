@@ -1,6 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 import { Redirect } from 'react-router';
 import { inject, observer } from 'mobx-react';
+import AuthPage from '../../containers/Auth/SignIn';
+
 
 @inject('store') @observer
 class ProtectedRoute extends Component {
@@ -24,7 +26,7 @@ class ProtectedRoute extends Component {
         }
         return children;
       }
-      return <Redirect to="/users/sign_in" />;
+      return <AuthPage />;
     }
     return null;
   }

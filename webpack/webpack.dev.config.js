@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
-const WebpackDevServer = require('webpack-dev-server');
 const config = require('../server/config');
+const WebpackDevServer = require('webpack-dev-server');
 
 const webpackConfig = require('./webpack.base.config')({ // eslint-disable-line
   cache: true,
@@ -20,8 +20,6 @@ const webpackConfig = require('./webpack.base.config')({ // eslint-disable-line
   ],
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({
       'process.env.DEV': true,
       'process.env.BROWSER': true,

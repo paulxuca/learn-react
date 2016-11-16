@@ -1,21 +1,19 @@
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const config = require('./config');
 const routes = require('./routes');
 const init = require('./init');
-const models = require('./models');
 const app = require('./app').app;
-
 
 init.initializeServer();
 
-
-setInterval(models.removeInactiveSessions, config.server.cleanupTime);
+app.use(cors());
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 app.use(bodyParser.json({ limit: '10mb' }));
 
-// setInterval(() => console.log(app._router.stack), 2000);
 app.post('/api/create', routes.create);
+app.post('/api/test/getlesson', routes.getLesson);
 app.listen(config.http.port, (err) => {
   if (err) {
     console.log(err);
@@ -23,7 +21,6 @@ app.listen(config.http.port, (err) => {
   }
   console.log(`backend server listening on localhost:${config.http.port}`);
 });
-
 
 module.exports = {
   app,

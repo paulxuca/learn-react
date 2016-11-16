@@ -40,7 +40,7 @@ class Auth {
   async attemptLocalAuth() {
     this.isAuthenticating = true;
     const userOrNull = await get('user');
-    if (userOrNull) {
+    if (userOrNull !== 'null' && userOrNull !== null) {
       this.isAuthenticated = true;
       this.userAccount = JSON.parse(userOrNull);
     }
