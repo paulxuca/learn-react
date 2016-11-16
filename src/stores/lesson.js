@@ -38,12 +38,13 @@ class Lesson {
     const jsonData = await fetch(getLessonApi(), {
       method: 'POST',
     });
-    const { sections, steps, lessonTitle } = await jsonData.json();
+    const { sections, steps, lessonTitle, files } = await jsonData.json();
     // const currentSectionStepsId = data.sections[this.currentStep].steps;
     this.totalSteps = sections[this.currentStep].steps.length;
     this.currentSectionData = steps;
     this.lessonName = lessonTitle;
     this.sectionTitle = sections[this.currentStep].title;
+    return files;
   }
 
 }

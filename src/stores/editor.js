@@ -1,5 +1,4 @@
 import { observable } from 'mobx';
-import defaultFileState from '../modules/starters/default';
 
 const initialSaveState = (numberOfFiles) => {
   const saveState = [];
@@ -20,7 +19,6 @@ export default class Editor {
   constructor() {
     this.currentSelectedFile = 0;
 
-    this.setFileState(defaultFileState);
     this.setFileState = this.setFileState.bind(this);
     this.selectFile = this.selectFile.bind(this);
     this.updateOldDoc = this.updateOldDoc.bind(this);
@@ -31,7 +29,7 @@ export default class Editor {
   }
 
   setFileState(fileState) {
-    const numberOfFiles = fileState.files.length;
+    const numberOfFiles = fileState.length;
     const saveState = initialSaveState(numberOfFiles);
 
     this.saveState = saveState;
@@ -49,10 +47,10 @@ export default class Editor {
   }
 
   updateOldDoc(oldDoc, index) {
-    this.fileState.files[index].contents = oldDoc;
+    this.fileState[index].contents = oldDoc;
   }
 
   get currentFile() {
-    return this.fileState.files[this.currentSelectedFile];
+    return this.fileState[this.currentSelectedFile];
   }
 }

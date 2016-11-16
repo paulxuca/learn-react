@@ -43,12 +43,21 @@ export default class Lesson extends Component {
   constructor() {
     super();
     this.handleSaveShortcut = this.handleSaveShortcut.bind(this);
+    this.state = {
+      filesHaveLoaded: false,
+    };
   }
 
   componentWillMount() {
     const { lessonid } = this.props.params;
-    const { lesson } = this.props.store;
-    lesson.getLesson();
+    const { lesson, editor } = this.props.store;
+
+    lesson
+      .getLesson()
+      .then((files) => {
+        editor.setFileState(files);
+        this.setState({ filesHaveLoaded: true });
+      });
   }
 
   componentDidMount() {
@@ -66,7 +75,7 @@ export default class Lesson extends Component {
     }
   }
 
-  render() {
+  renderLesson() {
     const { lesson, editor } = this.props.store;
     const { lessonName } = lesson;
     const { currentFile, currentSelectedFile } = editor;
@@ -117,5 +126,10 @@ export default class Lesson extends Component {
         </LessonWindow>
       </ProtectedRoute>
     );
+  }
+
+  render() {
+    if (this.state.filesHaveLoaded) return this.renderLesson();
+    return null;
   }
 }

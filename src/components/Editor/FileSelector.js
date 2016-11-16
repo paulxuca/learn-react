@@ -50,13 +50,11 @@ export default class FileSelector extends Component {
         currentSelectedFile,
         selectFile,
     } = this.props.editor;
-    const { files } = fileState;
-
 
     return (
       <FileSelectorContainer>
         <FileSelectorList>
-          {files.map((eachFile, index) =>
+          {fileState.map((eachFile, index) =>
             <FileSelectorItem
               key={`${index}`}
               active={currentSelectedFile === index}
