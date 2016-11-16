@@ -1,5 +1,5 @@
 import { observable } from 'mobx';
-import mock from './mock';
+import { getLessonApi } from '../utils/api';
 
 class Lesson {
   @observable totalSteps;
@@ -35,12 +35,16 @@ class Lesson {
   }
 
   async getLesson() {
-    const jsonData = await fetch('/api/test/getlesson', {
+    const jsonData = await fetch(getLessonApi(), {
       method: 'POST',
     });
-    const data = await jsonData.json();
+    const { sections, steps, lessonTitle } = await jsonData.json();
+    // const currentSectionStepsId = data.sections[this.currentStep].steps;
+    this.totalSteps = sections[this.currentStep].steps.length;
+    this.currentSectionData = steps;
+    this.lessonName = lessonTitle;
+    this.sectionTitle = sections[this.currentStep].title;
   }
-
 
 }
 

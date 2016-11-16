@@ -16,6 +16,10 @@ const PaneContainer = styled.default.div`
 
 const PaneSection = styled.default.div`
   flex: ${props => props.flex};
+  ${props => props.height && `
+    max-height: ${props.height}px;
+    min-height: ${props.height}px;  
+  `}
   ${props => props.row && 'flex-direction: row;'}
 `;
 
@@ -57,7 +61,10 @@ export default class Pane extends Component {
 
     return (
       <PaneContainer>
-        <PaneSection flex={1}>
+        <PaneSection
+          height={100}
+          flex={1}
+        >
           <Text
             size={24}
             weight={600}
@@ -76,7 +83,11 @@ export default class Pane extends Component {
             {sectionTitle}
           </Text>
         </PaneSection>
-        <PaneSection flex={0.5} row>
+        <PaneSection
+          flex={0.5}
+          height={50}
+          row
+        >
           <Text
             size={20}
             weight={400}
@@ -105,7 +116,7 @@ export default class Pane extends Component {
           />
         </PaneSection>
         <PaneSection flex={4}>
-          <Card header={currentSectionData[currentStep]} />
+          <Card header={currentSectionData[currentStep].instruction} />
         </PaneSection>
       </PaneContainer>
     );

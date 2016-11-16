@@ -37,7 +37,7 @@ const StepCounter = styled.default.a`
   }
 `;
 
-const Navigator = ({ totalSteps, activeStep, goToStep, onClick, completeSteps }) => {
+const Navigator = ({ totalSteps, activeStep, goToStep, completeSteps }) => {
   const totalStepElement = [];
 
   for (let i = 0; i < totalSteps; i += 1) {
@@ -62,7 +62,6 @@ const Navigator = ({ totalSteps, activeStep, goToStep, onClick, completeSteps })
 Navigator.propTypes = {
   totalSteps: PropTypes.number,
   activeStep: PropTypes.number,
-  onClick: PropTypes.func,
   completeSteps: PropTypes.arrayOf([PropTypes.number]),
   goToStep: PropTypes.func,
 };
