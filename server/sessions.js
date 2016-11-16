@@ -6,7 +6,7 @@ const utils = require('./utils');
 
 function ensureFiles(files, bundleDir) {
   files.forEach((eachFile) => {
-    fs.ensureFileSync(path.join(bundleDir, eachFile.fileName));
+    fs.outputFileSync(path.join(bundleDir, eachFile.fileName), eachFile.contents);
   });
 }
 

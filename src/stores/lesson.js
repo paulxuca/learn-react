@@ -1,5 +1,8 @@
 import { observable } from 'mobx';
-import { getLessonApi } from '../utils/api';
+import {
+    getLessonData,
+    initalizeSession,
+} from '../utils/api';
 
 class Lesson {
   @observable totalSteps;
@@ -35,10 +38,8 @@ class Lesson {
   }
 
   async getLesson() {
-    const jsonData = await fetch(getLessonApi(), {
-      method: 'POST',
-    });
-    const { sections, steps, lessonTitle, files } = await jsonData.json();
+    const { sections, steps, lessonTitle, files } = await getLessonData();
+    await initalizeSession(files);
     // const currentSectionStepsId = data.sections[this.currentStep].steps;
     this.totalSteps = sections[this.currentStep].steps.length;
     this.currentSectionData = steps;
